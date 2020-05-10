@@ -5,10 +5,17 @@
  */
 package com.bjsouth.gnr.dao;
 
+import com.bjsouth.gnr.dto.Game;
+import java.util.List;
+
 /**
  *
  * @author Bree
  */
-public class GameDAO {
-    
+public interface GameDAO {
+    public Game add(Game game);
+    public Game getOne(int id);
+    public List<Game> getAll();
+    public void edit(Game game);
+    public void remove(Game game);
 }
