@@ -10,6 +10,7 @@ import com.bjsouth.gnr.dto.GameSession;
 import com.bjsouth.gnr.dto.Player;
 import com.bjsouth.gnr.dto.SessionPlayer;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -50,6 +51,10 @@ public interface GNRService {
     public List<SessionPlayer> getSessionPlayersByPlayer(Player player);
     public List<GameSession> getGameSessionsByGame(Game game);
     public GameSession findLatestGameSession();
+    public List<Game> findTopRatedGames();
+    public Map<Game, Integer> findLeastPlayedGames();
+    public void calculatePlayerWins();
+    public void setSessionPlayersByGameSession(GameSession gameSession);
     
     //Rating Calucations
     public void calculateSessionRating(GameSession gameSession);

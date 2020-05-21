@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!--/*/ <th:block th:include="fragments/gamenightlook.html :: head">
+            </th:block> /*/-->
+    </head>
+    <body>
+        <div th:replace="fragments/gamenightlook.html :: navbar"></div>
+        
+        <div class="container-fluid w-75 text-center">
+            <div class="row justify-content-center p-4">
+                <h1>Add Game</h1>
+            </div>
+            <form action="add_game" method="post" class="form">
+                <div class="form-group">
+                    <label for="name">Game Name:</label>
+                    <input class="form-control" type="text" name="name" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="gameType">Game Type:</label>
+                    <input class="form-control" type="text" name="gameType" id="gameType">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="coop">Co-op:</label>
+                    <div class="radio">
+                        <label for="true">
+                            <input class="form-check-input" type="radio" name="coop" id="true" value="true">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="false">
+                            <input class="form-check-input" type="radio" name="coop" id="false" value="false" checked>
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <button class="btn btn-dark m-1" type="submit">Submit</button>
+                    <a href="/games_all" class="btn btn-secondary m-1" role="button">Cancel</a>
+                </div>
+            </form>
+        </div>
+        
+        <div th:replace="fragments/gamenightlook.html :: includes"></div>
+    </body>
+</html>

@@ -2,26 +2,30 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:fragment="head">
         <title>Gamenight!</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="css/default.css"/>
+        <link rel="icon" href="images/game_piece.png" type="image/png"/>
     </head>
     <body>
         <div th:fragment="navbar">
-            <nav class="navber navber-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="/index">Gamenight!</a>
-                <button class="navbar-toggler" type="button" data-toggle="collaspe" data-target="#gamenightNavbar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="/">
+                    <img src="images/game_piece.png" width="auto" height="30">
+                    Gamenight!
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collaspe" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collaspe navbar-collaspe" id="gamenightNavbar">
+                <div class="collaspe navbar-collaspe" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="">Games</a>
+                            <a class="nav-link" href="/games_all">Games</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Sessions</a>
+                            <a class="nav-link" href="/game_sessions_all">Sessions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Players</a>
+                            <a class="nav-link" href="/players_all">Players</a>
                         </li>
                     </ul>
                 </div>

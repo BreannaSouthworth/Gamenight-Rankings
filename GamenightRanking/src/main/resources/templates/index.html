@@ -7,13 +7,51 @@
     <body>
         <div th:replace="fragments/gamenightlook.html :: navbar"></div>
         
-        <div class="container-fluid m-1">
+        <div class="container-fluid w-75 text-center">
             <div class="row">
-                The latest Session can be seen here!
+                <div class="col mt-2 p-4">
+                    <h1>The latest session can be seen <a href="#" th:href="@{/game_session(id=${recentGameSession.id})}" class="btn btn-dark btn-lg" role="button">HERE!</a></h1>
+                </div>
             </div>
-            <div class="row">
-                <div class="col">3 Top Rated Games</div>
-                <div class="col">3 Least Played Games</div>
+            <div class="row mt-2">
+                <div class="col">
+                    <h3>Top Rated Games</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Game</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="game : ${topRatedGames}">
+                                <td>
+                                    <a href="#" th:href="@{/game(id=${game.id})}" th:text="${game.name}">Game Name</a>
+                                </td>
+                                <td th:text="${game.overallRating}">Rating</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <h3>Least Played Games</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Game</th>
+                                <th>Times Played</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="instance : ${leastPlayedGames}">
+                                <td>
+                                    <a href="#" th:href="@{/game(id=${instance.key.id})}" th:text="${instance.key.name}">Game Name</a>
+                                </td>
+                                <td th:text="${instance.value}">#</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         

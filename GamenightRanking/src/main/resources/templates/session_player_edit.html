@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!--/*/ <th:block th:include="fragments/gamenightlook.html :: head">
+            </th:block> /*/-->
+    </head>
+    <body>
+        <div th:replace="fragments/gamenightlook.html :: navbar"></div>
+        
+        <div class="container-fluid w-75 text-center">
+            <div class="row justify-content-center p-4">
+                <h1>Edit Session Player</h1>
+            </div>
+            <form action="#" th:action="@{/edit_session_player}" method="post" th:object="${sessionPlayer}">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input class="form-control" type="text" disabled th:value="${sessionPlayer.player.name}">
+                </div>
+                <div class="form-group">
+                    <label for="playerRating">Player's Rating of Session:</label>
+                    <input class="form-control" type="text" name="playerRating" id="playerRating" th:value="${sessionPlayer.playerRating}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="isWinner">Winner:</label>
+                    <div class="radio">
+                        <label for="true">
+                            <input class="form-check-input" type="radio" name="winner" id="true" value="true" th:checked="*{winner}">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="false">
+                            <input class="form-check-input" type="radio" name="winner" id="false" value="false" th:checked="*{winner} == false">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <input type="hidden" name="id" th:value="${sessionPlayer.id}"/>
+                    <button class="btn btn-dark m-1" type="submit">Submit</button>
+                    <a href="#" th:href="@{/game_session_edit(id=${sessionPlayer.gameSession.id})}" class="btn btn-secondary m-1" role="button">Cancel</a>
+                </div>
+            </form>
+        </div>
+        
+        <div th:replace="fragments/gamenightlook.html :: includes"></div>
+    </body>
+</html>

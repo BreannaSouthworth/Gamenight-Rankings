@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!--/*/ <th:block th:include="fragments/gamenightlook.html :: head">
+            </th:block> /*/-->
+    </head>
+    <body>
+        <div th:replace="fragments/gamenightlook.html :: navbar"></div>
+        
+        <div class="container-fluid w-75 text-center">
+            <div class="row justify-content-center p-4">
+                <h1>Edit Session</h1>
+            </div>
+            <form  action="#"th:action="@{/edit_game_session}" method="post" th:object="${gameSession}">
+                <fieldset disabled>
+                    <div class="form-group">
+                        <label for="game" class="m-2">Game:</label>
+                        <input class="form-control" type="text" name="game" id="game" th:value="${gameSession.game.name}">
+                    </div>
+                    <div class="form-group">
+                        <label for="sessionPlayers" class="m-2">Session Players:</label>
+                        <select multiple id="sessionPlayers" name="sessionPlayers" class="form-control">
+                            <option th:each="sessionPlayer : ${gameSession.sessionPlayers}" th:text="${sessionPlayer.player.name}">Player Name</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <label>Ending Date and Time</label>&nbsp;
+                    <input class="form-control" type="date" name="date" id="date">&nbsp;
+                    <input class="form-control" type="time" name="time" id="time">
+                </div>
+                <div class="row justify-content-center">
+                    <input type="hidden" name="id" th:value="${gameSession.id}">
+                    <button class="btn btn-dark m-1" type="submit">Submit</button>
+                    <a href="/game_sessions_all" class="btn btn-secondary m-1" role="button">Cancel</a>
+                </div>
+            </form>
+            
+            <div class="row justify-content-center p-4">
+                <h1>Edit Player of Session</h1>
+            </div>
+            <span th:each="sessionPlayer : ${gameSession.sessionPlayers}">
+                <div class="row">
+                    <div class="col text-right m-1">
+                        <p>Name: <span th:text="${sessionPlayer.player.name}"></span></p>
+                    </div>
+                    <div class="col text-left m-1">
+                        <a href="#" th:href="@{/session_player_edit(id=${sessionPlayer.id})}" class="btn btn-dark" role="button">Edit</a>
+                    </div>
+                </div>
+            </span>
+            &nbsp;
+            &nbsp;
+        </div>
+        
+        <div th:replace="fragments/gamenightlook.html :: includes"></div>
+    </body>
+</html>

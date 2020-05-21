@@ -49,7 +49,7 @@ public class SessionPlayerDAOImpl implements SessionPlayerDAO{
 
     @Override
     public SessionPlayer getOne(int id) {
-        String sql = "selec * from session_player where id = ?";
+        String sql = "select * from session_player where id = ?";
         return jdbc.queryForObject(sql, new SessionPlayerMapper(), id);
     }
 

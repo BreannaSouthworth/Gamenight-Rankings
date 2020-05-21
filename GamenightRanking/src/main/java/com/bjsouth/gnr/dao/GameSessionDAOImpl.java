@@ -10,6 +10,7 @@ import com.bjsouth.gnr.dto.GameSession;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +32,14 @@ public class GameSessionDAOImpl implements GameSessionDAO{
     
     @Override
     public GameSession add(GameSession gameSession) {
-        String sql = "insert into game_session (game_id, start_datetime, end_datetime, session_rating) values (?, ?, ?, ?)";
+        String sql = "insert into game_session (game_id, start_datetime, session_rating) values (?, ?, ?)";
         
         Game game = gameSession.getGame();
         int gameId = game.getId();
         LocalDateTime startDateTime = gameSession.getStartDateTime();
-        LocalDateTime endDateTime = gameSession.getEndDateTime();
         double sessionRating = gameSession.getSessionRating();
         
-        jdbc.update(sql, gameId, startDateTime, endDateTime, sessionRating);
+        jdbc.update(sql, gameId, startDateTime, sessionRating);
         Integer newId = jdbc.queryForObject("select last_insert_id()", Integer.class);
         gameSession.setId(newId);
         
@@ -54,7 +54,7 @@ public class GameSessionDAOImpl implements GameSessionDAO{
 
     @Override
     public List<GameSession> getAll() {
-        String sql = "select * from game_session order by timestamp";
+        String sql = "select * from game_session order by start_datetime";
         return jdbc.query(sql, new GameSessionMapper());
     }
 
@@ -83,12 +83,18 @@ public class GameSessionDAOImpl implements GameSessionDAO{
             GameSession result = new GameSession();
             
             result.setId(rs.getInt("id"));
+            
             Game game = games.getOne(rs.getInt("game_id"));
             result.setGame(game);
+            
             Timestamp ts1 = rs.getTimestamp("start_datetime");
             result.setStartDateTime(ts1.toLocalDateTime());
+            
             Timestamp ts2 = rs.getTimestamp("end_datetime");
             result.setEndDateTime(ts2.toLocalDateTime());
+            
+            result.setMinuteDuration(Duration.between(result.getStartDateTime(), result.getEndDateTime()).toMinutes());
+            
             result.setSessionRating(rs.getDouble("session_rating"));
             
             return result;

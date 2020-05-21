@@ -25,11 +25,17 @@ public class GameDAOImpl implements GameDAO{
 
     @Override
     public Game add(Game game) {
-        String sql = "inset into game (name, game_type, co_op, overall_rating)";
+        String sql = "insert into game (name, game_type, co_op, overall_rating) values (?, ?, ?, ?)";
         
         String name = game.getName();
         String gameType = game.getGameType();
-        boolean coop = game.isCoop();
+        boolean coopBoolean = game.isCoop();
+        int coop;
+        if(coopBoolean){
+            coop = 1;
+        } else {
+            coop = 0;
+        }
         double overallRating = game.getOverallRating();
         
         jdbc.update(sql, name, gameType, coop, overallRating);

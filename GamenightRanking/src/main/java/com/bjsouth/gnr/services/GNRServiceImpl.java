@@ -7,7 +7,12 @@ package com.bjsouth.gnr.services;
 
 import com.bjsouth.gnr.dao.*;
 import com.bjsouth.gnr.dto.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -155,6 +160,73 @@ public class GNRServiceImpl implements GNRService {
     @Override
     public GameSession findLatestGameSession() {
         return gameSessions.getAll().get(0);
+    }
+    
+    @Override
+    public List<Game> findTopRatedGames(){
+        Map<Game, Double> unsortedGames = new HashMap<>();
+        List<Game> allGames = this.getAllGames();
+        for(Game game : allGames){
+            this.calculateOverallRating(game);
+            Double rating = game.getOverallRating();
+            unsortedGames.put(game, rating);
+        }
+        LinkedHashMap<Game, Double> topRatedMap = new LinkedHashMap<>();
+        unsortedGames.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> topRatedMap.put(x.getKey(), x.getValue()));
+        
+        List<Game> topRatedGames = new ArrayList<>(topRatedMap.keySet());
+        return topRatedGames;
+    }
+    
+    @Override
+    public Map<Game, Integer> findLeastPlayedGames(){
+        Map<Game, Integer> unsortedGames = new HashMap<>();
+        List<Game> allGames = this.getAllGames();
+        //find out how often a game is played by the amount of GameSession that have it
+        for(Game game : allGames){
+            List<GameSession> sessionsOfGame = this.getGameSessionsByGame(game);
+            Integer occurence = sessionsOfGame.size();
+            //save in a map <Game, Integer> where integer is times it's played
+            unsortedGames.put(game, occurence);
+        }
+        //sort by decreasing Integer value using found solution
+        LinkedHashMap<Game, Integer> leastPlayedMap = new LinkedHashMap<>();
+        
+        unsortedGames.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEachOrdered(x -> leastPlayedMap.put(x.getKey(), x.getValue()));
+        
+        return leastPlayedMap;
+    }
+    
+    @Override
+    public void calculatePlayerWins(){
+        List<Player> playerList = this.getAllPlayers();
+        for(Player p : playerList){
+            List<SessionPlayer> spList = this.getSessionPlayersByPlayer(p);
+            for(SessionPlayer sp : spList){
+                if(sp.isWinner()){
+                    int wins = p.getWins();
+                    wins += 1;
+                    p.setWins(wins);
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void setSessionPlayersByGameSession(GameSession gameSession){
+        List<SessionPlayer> SPByGSList = new ArrayList<>();
+        for(SessionPlayer sp : this.getAllSessionPlayers()){
+            if(sp.getGameSession().getId() == gameSession.getId()){
+                SPByGSList.add(sp);
+            }
+        }
+        gameSession.setSessionPlayers(SPByGSList);
     }
 
     @Override

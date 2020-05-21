@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!--/*/ <th:block th:include="fragments/gamenightlook.html :: head">
+            </th:block> /*/-->
+    </head>
+    <body>
+        <div th:replace="fragments/gamenightlook.html :: navbar"></div>
+        
+        <div class="container-fluid w-75 text-center">
+            <div class="row justify-content-center p-4">
+                <h1>Add Player</h1>
+            </div>
+            <form action="add_player" method="post" class="form">
+                <div class="form-group">
+                    <label for="name">Player Name:</label>
+                    <input class="form-control" type="text" name="name" id="name">
+                </div>
+                <div class="row justify-content-center">
+                    <button class="btn btn-dark m-1" type="submit">Submit</button>
+                    <a href="/players_all" class="btn btn-secondary m-1" role="button">Cancel</a>
+                </div>
+            </form> 
+        </div>
+        
+        <div th:replace="fragments/gamenightlook.html :: includes"></div>
+    </body>

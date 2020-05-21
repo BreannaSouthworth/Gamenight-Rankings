@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!--/*/ <th:block th:include="fragments/gamenightlook.html :: head">
+            </th:block> /*/-->
+    </head>
+    <body>
+        <div th:replace="fragments/gamenightlook.html :: navbar"></div>
+        
+        <div class="container-fluid w-75 text-center">
+            <div class="row justify-content-center p-4">
+                <h1>Edit Game</h1>
+            </div>
+            <form class="form" action="#" th:action="@{/edit_game}" method="post" th:object="${game}">
+                <div class="form-group">
+                    <label for="name">Game Name:</label>
+                    <input class="form-control" type="text" name="name" id="name" th:value="${game.name}">
+                </div>
+                <div class="form-group">
+                    <label for="gameType">Game Type:</label>
+                    <input class="form-control" type="text" name="gameType" id="gameType" th:value="${game.gameType}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="coop">Is it Co-op?</label>
+                    <div class="radio">
+                        <label for="true">
+                            <input class="form-check-input" type="radio" name="coop" id="true" value="true" th:checked="*{coop}">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="false">
+                            <input class="form-check-input" type="radio" name="coop" id="false" value="false" th:checked="*{coop} == false">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <input type="hidden" name="id" th:value="${game.id}"/>
+                    <button class="btn btn-dark m-1" type="submit">Submit</button>&nbsp;
+                    <a href="/games_all" class="btn btn-secondary m-1" role="button">Cancel</a>
+                </div>
+            </form>
+        </div>
+        
+        <div th:replace="fragments/gamenightlook.html :: includes"></div>
+    </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!--/*/ <th:block th:include="fragments/gamenightlook.html :: head">
+            </th:block> /*/-->
+    </head>
+    <body>
+        <div th:replace="fragments/gamenightlook.html :: navbar"></div>
+        
+        <div class="container-fluid w-75 text-center">
+            <div class="row justify-content-center p-4">
+                <h1 th:text="${player.name}">Player Name</h1>
+            </div>
+            <div class="row justify-content-end">
+                <a href="#" th:href="@{/player_edit(id=${player.id})}" class="btn btn-dark" role="button">Edit</a>
+            </div>
+            <div class="row justify-content-center p-1">
+                <h3>Sessions of Player</h3>
+            </div>
+            <div class="row mt-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Game</th>
+                            <th>Players</th>
+                            <th>Winner</th>
+                            <th>Time Length</th>
+                            <th>Session Rating</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="gameSession : ${gameSessions}">
+                            <td th:text="${gameSession.startDateTime}">Date</td>
+                            <td>
+                                <a href="#" th:href="@{/game(id=${gameSession.game.id})}" th:text="${gameSession.game.name}">Game Name</a>
+                            </td>
+                            <td>
+                                <span th:each="sessionPlayer : ${gameSession.sessionPlayers}" style="display: block">
+                                    <a href="#" th:href="@{/player(id=${sessionPlayer.player.id})}" th:text="${sessionPlayer.player.name}"></a>
+                                </span>
+                            </td>
+                            <td>
+                                <span th:each="sessionPlayer : ${gameSession.sessionPlayers}" th:if="${sessionPlayer.winner == true}" th:text="${sessionPlayer.player.name}"></span>
+                            </td>
+                            <td th:text="${gameSession.minuteDuration}+' min'">Time</td>
+                            <td th:text="${gameSession.sessionRating}+' / 10'">Session Rating</td>
+                            <td>
+                                <a href="#" th:href="@{/game_session_edit(id=${gameSession.id})}" class="btn btn-success" role="button">Edit</a>
+                                <a href="#" th:href="@{/game_session_delete(id=${gameSession.id})}" class="btn btn-danger" role="button">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div th:replace="fragments/gamenightlook.html :: includes"></div>
+    </body>
+</html>

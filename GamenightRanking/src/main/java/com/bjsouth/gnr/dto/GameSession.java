@@ -19,16 +19,18 @@ public class GameSession {
     private LocalDateTime endDateTime;
     private double sessionRating;
     private List<SessionPlayer> sessionPlayers;
+    private long minuteDuration;
     
     public GameSession(){}
 
-    public GameSession(int id, Game game, LocalDateTime startTime, LocalDateTime endTime, double sessionRating, List<SessionPlayer> sessionPlayers) {
+    public GameSession(int id, Game game, LocalDateTime startDateTime, LocalDateTime endDateTime, double sessionRating, List<SessionPlayer> sessionPlayers, long minuteDuration) {
         this.id = id;
         this.game = game;
-        this.startDateTime = startTime;
-        this.endDateTime = endTime;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.sessionRating = sessionRating;
         this.sessionPlayers = sessionPlayers;
+        this.minuteDuration = minuteDuration;
     }
 
     public int getId() {
@@ -77,5 +79,13 @@ public class GameSession {
 
     public void setSessionPlayers(List<SessionPlayer> sessionPlayers) {
         this.sessionPlayers = sessionPlayers;
+    }
+
+    public long getMinuteDuration() {
+        return minuteDuration;
+    }
+
+    public void setMinuteDuration(long minuteDuration) {
+        this.minuteDuration = minuteDuration;
     }
 }

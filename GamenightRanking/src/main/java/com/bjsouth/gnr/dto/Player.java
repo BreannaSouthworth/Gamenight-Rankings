@@ -12,12 +12,14 @@ package com.bjsouth.gnr.dto;
 public class Player {
     private int id;
     private String name;
+    private int wins;
     
     public Player(){}
     
-    public Player(int id, String name){
+    public Player(int id, String name, int wins){
         this.id = id;
         this.name = name;
+        this.wins = wins;
     }
 
     public int getId() {
@@ -34,5 +36,13 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public int getWins(){
+        return wins;
+    }
+    
+    public void setWins(int wins) {
+        this.wins = wins;
     }
 }
