@@ -116,9 +116,9 @@ public class GNRServiceImpl implements GNRService {
 
     @Override
     public SessionPlayer addSessionPlayer(SessionPlayer sessionPlayer) {
-        GameSession gameSession = sessionPlayer.getGameSession();
-        List<SessionPlayer> playerList = gameSession.getSessionPlayers();
-        playerList.add(sessionPlayer);
+//        GameSession gameSession = sessionPlayer.getGameSession();
+//        List<SessionPlayer> playerList = gameSession.getSessionPlayers();
+//        playerList.add(sessionPlayer);
         
         return sessionPlayers.add(sessionPlayer);
     }

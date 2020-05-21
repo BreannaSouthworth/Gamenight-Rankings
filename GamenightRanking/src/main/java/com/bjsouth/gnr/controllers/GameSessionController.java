@@ -64,10 +64,11 @@ public class GameSessionController {
     @PostMapping("add_game_session")
     public String postAddGameSession(GameSession gameSession, HttpServletRequest request){
         //NEED: game, and startDateTime. sessionRating is 0.0
-        int gameId = Integer.getInteger(request.getParameter("game"));
+        String gameString = request.getParameter("gameId");
+        int gameId = Integer.parseInt(gameString);
         Game game = service.getOneGame(gameId);
         
-        String dateTimeString = request.getParameter("date")+request.getParameter("time");
+        String dateTimeString = request.getParameter("date")+"T"+request.getParameter("time");
         LocalDateTime startDateTime = LocalDateTime.parse(dateTimeString);
         
         //set varibles to gameSession
@@ -80,7 +81,7 @@ public class GameSessionController {
         
         //now that a gameSession exists, create sessionPlayers using that gs and List of Players
         //List of Players
-        String[] playerList = request.getParameterValues("SessionPlayers");
+        String[] playerList = request.getParameterValues("sessionPlayersIds");
         List<Player> players = new ArrayList<>();
         for(String p : playerList){
             players.add(service.getOnePlayer(Integer.parseInt(p)));
@@ -117,11 +118,13 @@ public class GameSessionController {
         int id = Integer.parseInt(request.getParameter("id"));
         gameSession = service.getOneGameSession(id);
         
-        //get varibles from request
+        String dateTimeString = request.getParameter("date")+"T"+request.getParameter("time");
+        LocalDateTime endDateTime = LocalDateTime.parse(dateTimeString);
         
-        //set varibles to gameSession
-        //save with service
-        return "";
+        gameSession.setEndDateTime(endDateTime);
+        
+        service.editGameSession(gameSession);
+        return "redirect:/game_sessions_all";
     }
     
     @GetMapping("/game_session_delete")

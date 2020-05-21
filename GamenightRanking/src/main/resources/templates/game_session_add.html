@@ -13,9 +13,9 @@
             </div>
             <form action="add_game_session" method="post">
                 <div class="form-group">
-                    <label for="game" class="control-label">Game:</label>
+                    <label for="gameId" class="control-label">Game:</label>
                     <div>
-                        <select class="form-control" name="game" id="game">
+                        <select class="form-control" name="gameId" id="gameId">
                             <span th:each="game : ${games}">
                                 <option th:value="${game.id}" th:text="${game.name}">Game Name</option>
                             </span>
@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="sessionPlayers" class="m-2">Session Players:</label>
-                    <select multiple id="sessionPlayers" name="sessionPlayers" class="form-control">
+                    <label for="sessionPlayersIds" class="m-2">Session Players:</label>
+                    <select multiple id="sessionPlayersIds" name="sessionPlayersIds" class="form-control">
                         <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}">Player Name</option>
                     </select>
                 </div>

@@ -91,7 +91,11 @@ public class GameSessionDAOImpl implements GameSessionDAO{
             result.setStartDateTime(ts1.toLocalDateTime());
             
             Timestamp ts2 = rs.getTimestamp("end_datetime");
-            result.setEndDateTime(ts2.toLocalDateTime());
+            if(ts2 == null){
+                result.setEndDateTime(ts1.toLocalDateTime());
+            }else{
+                result.setEndDateTime(ts2.toLocalDateTime());
+            }
             
             result.setMinuteDuration(Duration.between(result.getStartDateTime(), result.getEndDateTime()).toMinutes());
             

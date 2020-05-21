@@ -40,7 +40,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <span th:each="sessionPlayer : ${gameSession.sessionPlayers}" th:if="${sessionPlayer.winner == true}" th:text="${sessionPlayer.player.name}"></span>
+                                    <span th:each="sessionPlayer : ${gameSession.sessionPlayers}" th:if="${sessionPlayer.winner == true}" th:text="${sessionPlayer.player.name}" style="display: block"></span>
                                 </td>
                                 <td th:text="${gameSession.minuteDuration}+' min'">Time</td>
                                 <td th:text="${gameSession.sessionRating}+' / 10'">Session Rating</td>

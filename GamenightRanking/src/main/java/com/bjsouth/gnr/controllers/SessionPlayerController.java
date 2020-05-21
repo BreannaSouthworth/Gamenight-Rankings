@@ -42,6 +42,6 @@ public class SessionPlayerController {
         sessionPlayer.setPlayerRating(playerRating);
         sessionPlayer.setWinner(winner);
         service.editSessionPlayer(sessionPlayer);
-        return "redirect:/game_session_edit(id="+sessionPlayer.getGameSession().getId()+")";
+        return "redirect:/game_session_edit?id="+sessionPlayer.getGameSession().getId();
     }
 }
